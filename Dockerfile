@@ -18,5 +18,5 @@ RUN npm install --global yarn
 COPY . $APP_HOME
 # ADD v.s COPY: https://www.cnblogs.com/zdz8207/p/linux-docker-add-copy.html
 
-CMD ["bundle", "exec", "rails", "s", "-p", "3000"]
-
+# CMD ["bundle", "exec", "rails", "s", "-p", "3000"]
+CMD ["bundle", "exec", "rails", "s", "puma", "-b", "0.0.0.0", "-p", "3000", "-e", "development"]
