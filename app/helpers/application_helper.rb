@@ -1,11 +1,11 @@
 module ApplicationHelper
 
-  def full_title(page_title = '')
-    base_title = "Ruby on Rails Tutorial Sample App"
-    if page_title.empty?
-      base_title
-    else
-      "#{page_title} | #{base_title}"
-    end
+  def full_title(page_title = nil)
+    base_title = APP_NAME
+
+    # .reject(&:blank?) : strike out 'nil' and ''
+    [page_title, base_title].reject(&:blank?).join(' | ')
   end
+
+
 end
