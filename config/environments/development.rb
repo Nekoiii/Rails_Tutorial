@@ -65,6 +65,6 @@ Rails.application.configure do
 
   config.assets.quiet = true
   config.assets.debug = true
-  config.assets.compile = true
+  # config.assets.compile = true
   
 end
