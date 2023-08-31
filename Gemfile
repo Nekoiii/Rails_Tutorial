@@ -6,6 +6,7 @@ ruby "3.2.2"
 gem "rails", "~> 7.0.6"
 gem "mysql2", "~> 0.5"
 
+gem "bcrypt",          "3.1.18"
 gem "sassc-rails",     "2.1.2"
 gem "sprockets-rails", "3.4.2"
 gem "importmap-rails", "1.1.0"
