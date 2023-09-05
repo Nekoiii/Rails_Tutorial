@@ -52,5 +52,6 @@ production:
   <<: *default
   database: app_production
   url: <%= ENV['DATABASE_URL'] %>
+  adapter: postgresql
   username: app
   password: <%= ENV["APP_DATABASE_PASSWORD"] %>
