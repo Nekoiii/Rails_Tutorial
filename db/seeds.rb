@@ -1,3 +1,9 @@
+
+User.create!(name:  "a",
+  email: "a@a.a",
+  password: "aaaaaa",
+  password_confirmation: "aaaaaa")
+
 users=[]
 20.times do |i|
   name  = "User #{i+1}"
