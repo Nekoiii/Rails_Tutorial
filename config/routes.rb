@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       get :edit
     end
   end
+  resources :account_activations, only: [:edit]
   
   get  "/help", to: "static_pages#help"
   get  "/about", to: "static_pages#about"
