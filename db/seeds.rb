@@ -2,10 +2,12 @@
 User.create!(name:  "a",
   email: "a@a.a",
   password: "aaaaaa",
-  password_confirmation: "aaaaaa")
+  password_confirmation: "aaaaaa",
+  admin: true
+)
 
 users=[]
-20.times do |i|
+99.times do |i|
   name  = "User #{i+1}"
   email = "user-#{i+1}@mail.com"
   password = "password"
@@ -18,3 +20,4 @@ users=[]
               )
   users << user
 end
+
