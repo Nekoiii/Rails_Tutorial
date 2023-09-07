@@ -15,7 +15,7 @@ class User < ApplicationRecord
                                     uniqueness: true
 
   has_secure_password
-  validates :password, presence: true, length: { minimum: PASSWORD_LENGTH_MIN }
+  validates :password, presence: true, length: { minimum: PASSWORD_LENGTH_MIN }, allow_nil: true
   
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
@@ -37,9 +37,10 @@ class User < ApplicationRecord
     remember_digest || remember
   end
 
-  def authenticated?(remember_token)
-    return false if remember_digest.nil?
-    BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  def authenticated?(attribute, token)
+    digest = send("#{attribute}_digest")
+    return false if digest.nil?
+    BCrypt::Password.new(digest).is_password?(token)
   end
 
   def forget

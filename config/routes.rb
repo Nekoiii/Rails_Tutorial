@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   root "static_pages#home"
   
   resources :microposts
-  resources :users
+  resources :users do
+    member do
+      get :edit
+    end
+  end
   
   get  "/help", to: "static_pages#help"
   get  "/about", to: "static_pages#about"
