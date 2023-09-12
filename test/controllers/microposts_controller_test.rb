@@ -1,38 +1,23 @@
-# require "test_helper"
+require "test_helper"
 
-# class MicropostsControllerTest < ActionDispatch::IntegrationTest
-#   setup do
-#     @micropost = microposts(:one)
-#   end
+class MicropostsControllerTest < ActionDispatch::IntegrationTest
 
-#   test "should get index" do
-#     get microposts_url, as: :json
-#     assert_response :success
-#   end
+  def setup
+    @micropost = microposts(:micropost_1)
+  end
 
-#   test "should create micropost" do
-#     assert_difference("Micropost.count") do
-#       post microposts_url, params: { micropost: { content: @micropost.content, user_id: @micropost.user_id } }, as: :json
-#     end
+  test "should redirect create when not logged in" do
+    assert_no_difference 'Micropost.count' do
+      post microposts_path, params: { micropost: { content: "Lorem ipsum" } }
+    end
+    assert_redirected_to login_url
+  end
 
-#     assert_response :created
-#   end
-
-#   test "should show micropost" do
-#     get micropost_url(@micropost), as: :json
-#     assert_response :success
-#   end
-
-#   test "should update micropost" do
-#     patch micropost_url(@micropost), params: { micropost: { content: @micropost.content, user_id: @micropost.user_id } }, as: :json
-#     assert_response :success
-#   end
-
-#   test "should destroy micropost" do
-#     assert_difference("Micropost.count", -1) do
-#       delete micropost_url(@micropost), as: :json
-#     end
-
-#     assert_response :no_content
-#   end
-# end
+  test "should redirect destroy when not logged in" do
+    assert_no_difference 'Micropost.count' do
+      delete micropost_path(@micropost)
+    end
+    assert_response :see_other
+    assert_redirected_to login_url
+  end
+end
