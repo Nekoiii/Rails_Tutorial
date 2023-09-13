@@ -10,6 +10,9 @@ class User < ApplicationRecord
   before_create :create_activation_digest
 
   has_many :microposts, dependent: :destroy
+  has_many :active_relationships, class_name:  "Relationship",
+                                  foreign_key: "follower_id",
+                                  dependent:   :destroy
   validates :name, presence: true, length: { minimum: NAME_LENGTH_MIN, maximum: NAME_LENGTH_MAX }
   validates :email, presence: true, length: { maximum: EMAIL_LENGTH_MAX },
                                     format: { with: VALID_EMAIL_REGEX },
