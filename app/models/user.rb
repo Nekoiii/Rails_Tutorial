@@ -9,7 +9,7 @@ class User < ApplicationRecord
   before_save   :downcase_email
   before_create :create_activation_digest
 
-  has_many :microposts
+  has_many :microposts, dependent: :destroy
   validates :name, presence: true, length: { minimum: NAME_LENGTH_MIN, maximum: NAME_LENGTH_MAX }
   validates :email, presence: true, length: { maximum: EMAIL_LENGTH_MAX },
                                     format: { with: VALID_EMAIL_REGEX },
@@ -72,6 +72,12 @@ class User < ApplicationRecord
     reset_sent_at < PASSWORD_RESET_EXPIRY_HOURS.hours.ago
   end
 
+  def feed
+    # The ? acts as a placeholder for safely inserting variables into 
+    # an SQL query, preventing SQL injection attacks.
+    Micropost.where("user_id = ?", id)
+  end
+  
   private
 
     def downcase_email

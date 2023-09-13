@@ -1,38 +1,38 @@
-# require "test_helper"
+require "test_helper"
 
-# class MicropostsControllerTest < ActionDispatch::IntegrationTest
-#   setup do
-#     @micropost = microposts(:one)
-#   end
+class MicropostsControllerTest < ActionDispatch::IntegrationTest
 
-#   test "should get index" do
-#     get microposts_url, as: :json
-#     assert_response :success
-#   end
+  def setup
+    @micropost = microposts(:micropost_1)
+  end
 
-#   test "should create micropost" do
-#     assert_difference("Micropost.count") do
-#       post microposts_url, params: { micropost: { content: @micropost.content, user_id: @micropost.user_id } }, as: :json
-#     end
+  test "should redirect create when not logged in" do
+    assert_no_difference 'Micropost.count' do
+      post microposts_path, params: { micropost: { content: "Lorem ipsum" } }
+    end
+    assert_redirected_to login_url
+  end
 
-#     assert_response :created
-#   end
+  test "should redirect destroy when not logged in" do
+    assert_no_difference 'Micropost.count' do
+      delete micropost_path(@micropost)
+    end
+    assert_response :see_other
+    assert_redirected_to login_url
+  end
 
-#   test "should show micropost" do
-#     get micropost_url(@micropost), as: :json
-#     assert_response :success
-#   end
+  test "should redirect destroy for wrong micropost" do
+    @other_user = users(:test_user_2)
+    log_in_as(@other_user)
+    micropost = microposts(:micropost_3)
+    # puts "xxx-Micropost: #{micropost.inspect}"
+    # puts "xxx-other_user: #{@other_user.inspect}"
 
-#   test "should update micropost" do
-#     patch micropost_url(@micropost), params: { micropost: { content: @micropost.content, user_id: @micropost.user_id } }, as: :json
-#     assert_response :success
-#   end
+    assert_no_difference 'Micropost.count' do
+      delete micropost_path(micropost)
+    end
+    assert_response :see_other
+    assert_redirected_to root_url
+  end
 
-#   test "should destroy micropost" do
-#     assert_difference("Micropost.count", -1) do
-#       delete micropost_url(@micropost), as: :json
-#     end
-
-#     assert_response :no_content
-#   end
-# end
+end

@@ -1,34 +1,31 @@
 class MicropostsController < ApplicationController
-  before_action :set_micropost, only: %i[ show update destroy ]
+  before_action :logged_in_user, only: %i[create destroy]
+  # before_action :set_micropost, only: %i[ show update destroy ]
+  before_action :correct_user, only: %i[destroy]
 
-  # GET /microposts
-  # GET /microposts.json
   def index
     @microposts = Micropost.all
   end
-
-  # GET /microposts/1
-  # GET /microposts/1.json
   def show
   end
 
   def new
   end
-  
-  # POST /microposts
-  # POST /microposts.json
+
   def create
-    @micropost = Micropost.new(micropost_params)
+    @micropost = current_user.microposts.build(micropost_params)
+    @micropost.image.attach(params[:micropost][:image])
 
     if @micropost.save
-      render :show, status: :created, location: @micropost
+      flash[:success] = "Micropost created!"
+      redirect_to root_url
     else
-      render json: @micropost.errors, status: :unprocessable_entity
+      # setting @feed_items here is for the situation when post fails
+      @feed_items = current_user.feed.paginate(page: params[:page])
+      render 'static_pages/home', status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /microposts/1
-  # PATCH/PUT /microposts/1.json
   def update
     if @micropost.update(micropost_params)
       render :show, status: :ok, location: @micropost
@@ -37,20 +34,32 @@ class MicropostsController < ApplicationController
     end
   end
 
-  # DELETE /microposts/1
-  # DELETE /microposts/1.json
   def destroy
     @micropost.destroy
+    flash[:success] = "Micropost deleted"
+    # redirect_back_or_to: https://railsdoc.com/page/redirect_back_or_to
+    # equals to: 
+    if request.referrer.nil?
+      redirect_to root_url, status: :see_other
+    else
+      redirect_to request.referrer, status: :see_other
+    end
+    # redirect_back_or_to(root_url, status: :see_other)
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_micropost
-      @micropost = Micropost.find(params[:id])
+    # def set_micropost
+    #   @micropost = Micropost.find(params[:id])
+    # end
+
+    def micropost_params
+      params.require(:micropost).permit(:content, :image)
     end
 
-    # Only allow a list of trusted parameters through.
-    def micropost_params
-      params.require(:micropost).permit(:content, :user_id)
+  
+    def correct_user
+      @micropost = current_user.microposts.find_by(id: params[:id])
+      # see_other: Return 303 status code
+      redirect_to root_url, status: :see_other if @micropost.nil?
     end
 end

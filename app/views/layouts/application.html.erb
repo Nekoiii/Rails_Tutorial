@@ -11,6 +11,7 @@
     <%= javascript_importmap_tags %>
   </head>
   <body>
+    <div id="js-constants" data-img-size-mg-max="<%= Micropost::IMG_SIZE_MG_MAX %>"></div>
     <%= render 'layouts/header' %>
     <div class="container">
       <% flash.each do |message_type, message| %>

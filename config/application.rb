@@ -29,5 +29,7 @@ module App
     config.session_store :cookie_store, key: '_interslice_session'
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use config.session_store, config.session_options
+
+    config.active_storage.variant_processor = :mini_magick
   end
 end
