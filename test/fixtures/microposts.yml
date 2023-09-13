@@ -10,11 +10,18 @@ micropost_2:
   created_at: <%= 3.years.ago %>
   user: test_user_2
 
+micropost_3:
+  content: "xxxxxxxxxxxx"
+  created_at: <%= 15.minutes.ago %>
+  user: test_user_3
+
+
 
 most_recent_micropost:
   content: 'most recent micropost'
   created_at: <%= Time.zone.now %>
   user: test_user_1
+
 
 <% 30.times do |n| %>
 micropost_<%= n %>:

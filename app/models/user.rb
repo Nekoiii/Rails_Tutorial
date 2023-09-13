@@ -72,6 +72,12 @@ class User < ApplicationRecord
     reset_sent_at < PASSWORD_RESET_EXPIRY_HOURS.hours.ago
   end
 
+  def feed
+    # The ? acts as a placeholder for safely inserting variables into 
+    # an SQL query, preventing SQL injection attacks.
+    Micropost.where("user_id = ?", id)
+  end
+  
   private
 
     def downcase_email

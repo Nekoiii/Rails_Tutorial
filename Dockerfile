@@ -14,6 +14,7 @@ RUN bundle install --jobs=2
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && apt-get install -y nodejs
 # install yarn
 RUN npm install --global yarn
+RUN apt-get update && apt-get -y install imagemagick
 
 COPY . $APP_HOME
 # ADD v.s COPY: https://www.cnblogs.com/zdz8207/p/linux-docker-add-copy.html
