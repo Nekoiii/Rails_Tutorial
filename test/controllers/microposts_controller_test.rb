@@ -21,20 +21,18 @@ class MicropostsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to login_url
   end
 
-  # *problem: fail here !!!!
-  # test "should redirect destroy for wrong micropost" do
-  #   @other_user = users(:test_user_2)
-  #   log_in_as(@other_user)
-  #   micropost = microposts(:micropost_3)
+  test "should redirect destroy for wrong micropost" do
+    @other_user = users(:test_user_2)
+    log_in_as(@other_user)
+    micropost = microposts(:micropost_3)
+    # puts "xxx-Micropost: #{micropost.inspect}"
+    # puts "xxx-other_user: #{@other_user.inspect}"
 
-  #   puts "xxx-Micropost: #{micropost.inspect}"
-  #   puts "xxx-other_user: #{@other_user.inspect}"
-
-    # assert_no_difference 'Micropost.count' do
-    #   delete micropost_path(micropost)
-    # end
-    # assert_response :see_other
-    # assert_redirected_to root_url
-  # end
+    assert_no_difference 'Micropost.count' do
+      delete micropost_path(micropost)
+    end
+    assert_response :see_other
+    assert_redirected_to root_url
+  end
 
 end

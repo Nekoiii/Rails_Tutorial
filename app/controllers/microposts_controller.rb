@@ -59,11 +59,6 @@ class MicropostsController < ApplicationController
   
     def correct_user
       @micropost = current_user.microposts.find_by(id: params[:id])
-      puts "Correct User Method Invoked"
-      puts "Micropost ID: #{@micropost.id}"
-      puts "Micropost User ID: #{@micropost.user_id}"
-      puts "Current User ID: #{current_user.id}"
-
       # see_other: Return 303 status code
       redirect_to root_url, status: :see_other if @micropost.nil?
     end
