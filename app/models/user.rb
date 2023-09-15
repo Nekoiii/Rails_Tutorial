@@ -10,6 +10,18 @@ class User < ApplicationRecord
   before_create :create_activation_digest
 
   has_many :microposts, dependent: :destroy
+  has_many :active_relationships, class_name:  "Relationship",
+                                  foreign_key: "follower_id",
+                                  dependent:   :destroy
+  has_many :passive_relationships, class_name:  "Relationship",
+                                  foreign_key: "followed_id",
+                                  dependent:   :destroy
+  """
+    we can omit source: :follower since Rails will automatically look for follower_id, matching our setup.
+    but can't omit source: :followed because Rails would default to looking for a following_id which we don't have.
+  """
+  has_many :following, through: :active_relationships, source: :followed
+  has_many :followers, through: :passive_relationships
   validates :name, presence: true, length: { minimum: NAME_LENGTH_MIN, maximum: NAME_LENGTH_MAX }
   validates :email, presence: true, length: { maximum: EMAIL_LENGTH_MAX },
                                     format: { with: VALID_EMAIL_REGEX },
@@ -73,12 +85,37 @@ class User < ApplicationRecord
   end
 
   def feed
-    # The ? acts as a placeholder for safely inserting variables into 
-    # an SQL query, preventing SQL injection attacks.
-    Micropost.where("user_id = ?", id)
+    # # The ? acts as a placeholder for safely inserting variables into 
+    # # an SQL query, preventing SQL injection attacks.
+    # Micropost.where("user_id IN (?) OR user_id = ?", following_ids, id)
+
+    # following_ids = "SELECT followed_id FROM relationships
+    #                 WHERE  follower_id = :user_id"
+    # # .includes is to handle N+1
+    # Micropost.where("user_id IN (#{following_ids})
+    #               OR user_id = :user_id", user_id: id)
+    #               .includes(:user, image_attachment: :blob)
+ 
+    part_of_feed = "relationships.follower_id = :id or microposts.user_id = :id"
+    # .distinct(): https://qiita.com/toda-axiaworks/items/ad5a0e2322ac6a2ea0f4
+    Micropost.left_outer_joins(user: :followers)
+             .where(part_of_feed,{ id: id }).distinct
+             .includes(:user, image_attachment: :blob)
+  end
+
+  def follow(other_user)
+    following << other_user unless self == other_user
+  end
+
+  def unfollow(other_user)
+    following.delete(other_user)
+  end
+
+  def following?(other_user)
+    following.include?(other_user)
   end
   
-  private
+  private 
 
     def downcase_email
       self.email = email.downcase
