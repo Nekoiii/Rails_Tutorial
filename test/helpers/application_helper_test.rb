@@ -1,7 +1,9 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class ApplicationHelperTest < ActionView::TestCase
-  test "full title helper" do
+  test 'full title helper' do
     assert_equal full_title, APP_NAME
   end
 end

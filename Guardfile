@@ -1,4 +1,6 @@
-require "active_support/inflector"
+# frozen_string_literal: true
+
+require 'active_support/inflector'
 # Guardのマッチング規則を定義
 guard :minitest, all_on_start: false do
   watch(%r{^test/(.*)/?(.*)_test\.rb$})
@@ -7,7 +9,7 @@ guard :minitest, all_on_start: false do
   watch(%r{app/views/layouts/*}) { interface_tests }
   watch(%r{^app/models/(.*?)\.rb$}) do |matches|
     ["test/models/#{matches[1]}_test.rb",
-     "test/integration/microposts_interface_test.rb"]
+     'test/integration/microposts_interface_test.rb']
   end
   watch(%r{^test/fixtures/(.*?)\.yml$}) do |matches|
     "test/models/#{matches[1].singularize}_test.rb"
@@ -23,7 +25,7 @@ guard :minitest, all_on_start: false do
   end
   watch(%r{^app/views/([^/]*?)/.*\.html\.erb$}) do |matches|
     ["test/controllers/#{matches[1]}_controller_test.rb"] +
-    integration_tests(matches[1])
+      integration_tests(matches[1])
   end
   watch(%r{^app/helpers/(.*?)_helper\.rb$}) do |matches|
     integration_tests(matches[1])
@@ -43,7 +45,7 @@ guard :minitest, all_on_start: false do
   end
   watch(%r{app/views/users/*}) do
     resource_tests('users') +
-    ['test/integration/microposts_interface_test.rb']
+      ['test/integration/microposts_interface_test.rb']
   end
   watch('app/controllers/relationships_controller.rb') do
     ['test/controllers/relationships_controller_test.rb',
@@ -54,7 +56,7 @@ end
 # 指定のリソースに対応する統合テストを返す
 def integration_tests(resource = :all)
   if resource == :all
-    Dir["test/integration/*"]
+    Dir['test/integration/*']
   else
     Dir["test/integration/#{resource}_*.rb"]
   end
@@ -62,7 +64,7 @@ end
 
 # インターフェースが該当するすべてのテストを返す
 def interface_tests
-  integration_tests << "test/controllers"
+  integration_tests << 'test/controllers'
 end
 
 # 指定のリソースに対応するコントローラのテストを返す

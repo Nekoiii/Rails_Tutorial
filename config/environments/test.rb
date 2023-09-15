@@ -1,4 +1,6 @@
-require "active_support/core_ext/integer/time"
+# frozen_string_literal: true
+
+require 'active_support/core_ext/integer/time'
 
 # The test environment is used exclusively to run your application's
 # test suite. You never need to work with it otherwise. Remember that
@@ -14,12 +16,12 @@ Rails.application.configure do
   # Eager loading loads your whole application. When running a single test locally,
   # this probably isn't necessary. It's a good idea to do in a continuous integration
   # system, or in some way before deploying your code.
-  config.eager_load = ENV["CI"].present?
+  config.eager_load = ENV['CI'].present?
 
   # Configure public file server for tests with Cache-Control for performance.
   config.public_file_server.enabled = true
   config.public_file_server.headers = {
-    "Cache-Control" => "public, max-age=#{1.hour.to_i}"
+    'Cache-Control' => "public, max-age=#{1.hour.to_i}"
   }
 
   # Show full error reports and disable caching.
@@ -39,13 +41,12 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
 
   config.action_mailer.raise_delivery_errors = false
-  if ENV['DOCKERIZED'] == 'true'
-    host = 'localhost:3000'
-  else
-    host = 'web:3000'
-  end
-  config.action_mailer.default_url_options = { host: host, protocol: 'http' }
-
+  host = if ENV['DOCKERIZED'] == 'true'
+           'localhost:3000'
+         else
+           'web:3000'
+         end
+  config.action_mailer.default_url_options = { host:, protocol: 'http' }
 
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
