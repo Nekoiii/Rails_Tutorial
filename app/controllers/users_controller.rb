@@ -30,15 +30,19 @@ class UsersController < ApplicationController
   end
 
   def edit
+    # Rails.logger.debug "Edit user with ID: #{params[:id]}"
     @user = User.find(params[:id])
   end
 
   def update
+    Rails.logger.debug "Update user with ID: #{params[:id]}"
+
     @user = User.find(params[:id])
     if @user.update(user_params)
       flash[:success] = "Profile updated"
       redirect_to @user
     else
+      flash.now[:danger] = "Profile updated failed!"
       render 'edit', status: :unprocessable_entity
     end
   end

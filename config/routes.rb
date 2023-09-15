@@ -6,8 +6,6 @@ Rails.application.routes.draw do
   
   resources :users do
     member do
-      # *problem: bug when not 'get :edit' here
-      get :edit
       get :following, :followers
     end
   end
@@ -20,7 +18,7 @@ Rails.application.routes.draw do
   get  "/about", to: "static_pages#about"
   get  "/contact", to: "static_pages#contact"
   get  "/signup",  to: "users#new"
-  get '/users/new', to: 'users#new', as: 'users_new'
+  # get '/users/new', to: 'users#new', as: 'users_new'
 
   get    "/login",   to: "sessions#new"
   post   "/login",   to: "sessions#create"
