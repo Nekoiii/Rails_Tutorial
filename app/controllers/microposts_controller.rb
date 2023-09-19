@@ -9,7 +9,10 @@ class MicropostsController < ApplicationController
     @microposts = Micropost.all
   end
 
-  def show; end
+  def show
+    @micropost = Micropost.find(params[:id])
+
+  end
 
   def new; end
 

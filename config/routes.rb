@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   end
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: %i[new create edit update]
-  resources :microposts,          only: %i[create destroy]
+  resources :microposts,          only: %i[create destroy show]
   resources :relationships,       only: %i[create destroy]
 
   get  '/help', to: 'static_pages#help'

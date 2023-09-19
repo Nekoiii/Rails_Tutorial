@@ -51,12 +51,12 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'password should be present (nonblank)' do
-    @user.password = @user.password_confirmation = ' ' * 6
+    @user.password = @user.password_confirmation = ' ' * User::PASSWORD_LENGTH_MIN
     assert_not @user.valid?
   end
 
   test 'password should have a minimum length' do
-    @user.password = @user.password_confirmation = 'a' * 5
+    @user.password = @user.password_confirmation = 'a' * (User::PASSWORD_LENGTH_MIN - 1)
     assert_not @user.valid?
   end
 
