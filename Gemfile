@@ -30,6 +30,8 @@ group :development, :test do
   gem 'sqlite3', '1.4.2'
   # rspec: https://www.sejuku.net/blog/47847
   gem 'rspec-rails'
+  # Factorybot: https://qiita.com/napoano365/items/38e7796c683e785ccf3a
+  gem 'factory_bot_rails'
 end
 
 group :development do

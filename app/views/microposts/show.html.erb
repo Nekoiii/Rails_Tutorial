@@ -1,0 +1,7 @@
+<div>
+    <%= @micropost.content %>
+    <% if @micropost.image.attached? %>
+      <%= image_tag @micropost.image.variant(:display) %>
+    <% end %>
+  </span>
+</div>
