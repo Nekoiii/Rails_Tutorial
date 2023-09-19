@@ -7,9 +7,9 @@ $gray-medium-light: #eaeaea;
 
 // @mixin: https://blanche-toile.com/web/sass-mixin
 @mixin box_sizing {
-  -moz-box-sizing:    border-box;
+  -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  box-sizing:         border-box;
+  box-sizing: border-box;
 }
 
 /* universal */
@@ -35,7 +35,12 @@ textarea {
 
 /* typography */
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   line-height: 1;
 }
 
@@ -59,7 +64,6 @@ p {
   font-size: 1.1em;
   line-height: 1.7em;
 }
-
 
 /* header */
 
@@ -158,6 +162,13 @@ aside {
   margin-top: 15px;
 }
 
+.user_avatar {
+  float: left;
+  margin-right: 10px;
+  width: 5vw;
+  height: 5vw;
+}
+
 .stats {
   overflow: auto;
   margin-top: 0;
@@ -198,7 +209,10 @@ aside {
 
 /* forms */
 
-input, textarea, select, .uneditable-input {
+input,
+textarea,
+select,
+.uneditable-input {
   border: 1px solid #bbb;
   width: 100%;
   margin-bottom: 15px;
