@@ -1,6 +1,21 @@
 <%= form_with(model: @user) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
+
+  <div>
+    <%= image_tag avatar_for(@user), 
+        alt: 'Avatar', 
+        size: '100x100',
+        id:'avatar_upload_btn', 
+        class:'avatar_upload_btn'  %>
+    <%= f.file_field :avatar, 
+        id: 'avatar_upload_field',
+        class:'hidden'
+    %>
+    <div>( Click to edit avatar )</div>
+  </div>    
+  
+  
   <%= f.label :name %>
   <%= f.text_field :name, class: 'form-control' %>
 
