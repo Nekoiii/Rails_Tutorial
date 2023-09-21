@@ -7,8 +7,8 @@
     <% if micropost.image.attached? %>
       <%= image_tag micropost.image.variant(:display) %>
     <% end %>
+    <span><%= link_to "view details", micropost %></span>
   </span>
-  <span><%= link_to "view details", micropost %></span>
   <span class="timestamp">
     <%# time_ago_in_words: https://railsdoc.com/page/time_ago_in_words %>
     Posted <%= time_ago_in_words(micropost.created_at) %> ago.

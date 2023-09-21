@@ -153,13 +153,19 @@ aside {
   }
 }
 
+.avatar {
+  // float: left;
+  margin-right: 10px;
+  width: 3vw;
+  height: 3vw;
+}
+.avatar_edit {
+  margin-top: 15px;
+}
+
 .gravatar {
   float: left;
   margin-right: 10px;
-}
-
-.gravatar_edit {
-  margin-top: 15px;
 }
 
 .user_avatar {
@@ -196,6 +202,9 @@ aside {
   overflow: auto;
   margin-top: 10px;
   .gravatar {
+    margin: 1px 1px;
+  }
+  .avatar {
     margin: 1px 1px;
   }
   a {
@@ -289,6 +298,11 @@ input {
     margin-right: 10px;
     margin-top: 5px;
   }
+  .avatar {
+    float: left;
+    margin-right: 10px;
+    margin-top: 5px;
+  }
 }
 
 aside {
@@ -327,4 +341,16 @@ span.image {
 
 .hidden {
   display: none;
+}
+
+.avatar_upload_btn:hover {
+  cursor: pointer;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.text-align-center {
+  text-align: center;
 }
