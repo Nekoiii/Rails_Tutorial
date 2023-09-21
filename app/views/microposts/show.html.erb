@@ -1,7 +1,16 @@
 <div>
+  <div>
+    <h3>User</h3>
+    <%= image_tag avatar_for(@micropost.user), alt: 'User Avatar', class: 'avatar' %>
+    <span class="user"><%= link_to @micropost.user.name, @micropost.user %></span>
+  </div>
+  <div>
+    <h3>content</h3>
+    <div>
     <%= @micropost.content %>
     <% if @micropost.image.attached? %>
       <%= image_tag @micropost.image.variant(:display) %>
     <% end %>
-  </span>
+    </div>
+  </div>
 </div>

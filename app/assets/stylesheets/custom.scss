@@ -7,9 +7,9 @@ $gray-medium-light: #eaeaea;
 
 // @mixin: https://blanche-toile.com/web/sass-mixin
 @mixin box_sizing {
-  -moz-box-sizing:    border-box;
+  -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  box-sizing:         border-box;
+  box-sizing: border-box;
 }
 
 /* universal */
@@ -35,7 +35,12 @@ textarea {
 
 /* typography */
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   line-height: 1;
 }
 
@@ -59,7 +64,6 @@ p {
   font-size: 1.1em;
   line-height: 1.7em;
 }
-
 
 /* header */
 
@@ -149,13 +153,26 @@ aside {
   }
 }
 
+.avatar {
+  // float: left;
+  margin-right: 10px;
+  width: 3vw;
+  height: 3vw;
+}
+.avatar_edit {
+  margin-top: 15px;
+}
+
 .gravatar {
   float: left;
   margin-right: 10px;
 }
 
-.gravatar_edit {
-  margin-top: 15px;
+.user_avatar {
+  float: left;
+  margin-right: 10px;
+  width: 5vw;
+  height: 5vw;
 }
 
 .stats {
@@ -187,6 +204,9 @@ aside {
   .gravatar {
     margin: 1px 1px;
   }
+  .avatar {
+    margin: 1px 1px;
+  }
   a {
     padding: 0;
   }
@@ -198,7 +218,10 @@ aside {
 
 /* forms */
 
-input, textarea, select, .uneditable-input {
+input,
+textarea,
+select,
+.uneditable-input {
   border: 1px solid #bbb;
   width: 100%;
   margin-bottom: 15px;
@@ -275,6 +298,11 @@ input {
     margin-right: 10px;
     margin-top: 5px;
   }
+  .avatar {
+    float: left;
+    margin-right: 10px;
+    margin-top: 5px;
+  }
 }
 
 aside {
@@ -290,16 +318,6 @@ span.image {
     border: 0;
   }
 }
-
-/* others */
-
-.debug_dump {
-  clear: both;
-  float: left;
-  width: 100%;
-  margin-top: 45px;
-}
-
 /* Users index */
 
 .users {
@@ -310,4 +328,29 @@ span.image {
     padding: 10px 0;
     border-bottom: 1px solid $gray-lighter;
   }
+}
+
+/* others */
+
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+}
+
+.hidden {
+  display: none;
+}
+
+.avatar_upload_btn:hover {
+  cursor: pointer;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.text-align-center {
+  text-align: center;
 }
