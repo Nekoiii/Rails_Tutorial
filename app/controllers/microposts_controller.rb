@@ -11,7 +11,6 @@ class MicropostsController < ApplicationController
 
   def show
     @micropost = Micropost.find(params[:id])
-
   end
 
   def new; end
@@ -43,10 +42,10 @@ class MicropostsController < ApplicationController
     flash[:success] = 'Micropost deleted'
     # redirect_back_or_to: https://railsdoc.com/page/redirect_back_or_to
     # equals to:
-    if request.referrer.nil?
+    if request.referer.nil?
       redirect_to root_url, status: :see_other
     else
-      redirect_to request.referrer, status: :see_other
+      redirect_to request.referer, status: :see_other
     end
     # redirect_back_or_to(root_url, status: :see_other)
   end

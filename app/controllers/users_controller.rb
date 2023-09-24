@@ -27,8 +27,8 @@ class UsersController < ApplicationController
       @user.avatar.attach(user_params[:avatar])
     else
       # Using Rails.root to make sure the full path to the default avatar file is correct
-      default_avatar_path = Rails.root.join('app', 'assets', 'images', 'avatar-1.jpg')
-       # Using io: File.open to open the file and create an IO object to attach the file
+      default_avatar_path = Rails.root.join('app/assets/images/avatar-1.jpg')
+      # Using io: File.open to open the file and create an IO object to attach the file
       @user.avatar.attach(io: File.open(default_avatar_path), filename: 'avatar-1.jpg')
     end
 
@@ -48,10 +48,8 @@ class UsersController < ApplicationController
 
   def update
     Rails.logger.debug "Update user with ID: #{params[:id]}"
-    if user_params[:avatar].present?
-      @user.avatar.attach(user_params[:avatar])
-    end
-    
+    @user.avatar.attach(user_params[:avatar]) if user_params[:avatar].present?
+
     @user = User.find(params[:id])
     if @user.update(user_params)
       flash[:success] = 'Profile updated'
@@ -87,7 +85,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password,:avatar,
+    params.require(:user).permit(:name, :email, :password, :avatar,
                                  :password_confirmation)
   end
 
