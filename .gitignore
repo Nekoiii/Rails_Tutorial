@@ -42,6 +42,7 @@
 # Ignore application's specific configuration file
 /config/credentials.yml.enc
 /config/master.key
+/config/master.key.backup
 
 # Ignore bundler gems.
 /vendor/bundle
